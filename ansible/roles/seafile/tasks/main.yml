@@ -1,0 +1,16 @@
+---
+# tasks file for seafile
+- name: install pecakages for seafile
+  yum:
+    name:
+      - python
+      - python-setuptools
+      - MySQL-python
+      - python-urllib3
+      - python-ldap
+
+- name: download seafile archive
+  get_url:
+    url: "{{ seafile_archive }}"
+    dest: /opt/seafile-server.tar.bz2
+    # checksum: "sha256:{{ seafile_archive }}.sha256"

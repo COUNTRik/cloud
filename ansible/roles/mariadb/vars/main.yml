@@ -1,0 +1,8 @@
+---
+# vars file for mariadb
+
+mariadb_conf_dir:
+  CentOS: /etc/my.cnf.d/my.cnf
+
+mariadb_sock_dir:
+  CentOS: /var/lib/mysql

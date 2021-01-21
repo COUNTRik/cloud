@@ -1,0 +1,22 @@
+---
+# CentOS related tasks
+
+- name: install epel-release
+  yum:
+    name: epel-release
+    state: latest
+
+
+# - name: update os
+#   yum:
+#     name: '*'
+#     update_cache: true
+#     state: latest
+
+- name: install needed packages
+  yum:
+    name:
+      - mc
+      - vim
+      - wget
+    state: latest
