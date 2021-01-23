@@ -1,2 +1,3 @@
 ---
 # defaults file for seafile
+mariadb_version: 10.3

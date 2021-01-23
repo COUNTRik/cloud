@@ -4,58 +4,43 @@
 - name: include os specific tasks
   include_tasks: "{{ ansible_distribution }}.yml"
 
-# - name: install PyMySQL
-#   pip: 
-#     name: PyMySQL
-#     state: latest
-#   become: true
+- name: start MariaDB
+  systemd:
+    name: mariadb
+    state: started
 
-# - name: create conf dir
-#   file:
-#     name: "{{ mariadb_conf_dir[ansible_distribution] | dirname }}"
-#     owner: root
-#     group: root
-#     mode: 0755
-#     state: directory
+- name: remove anonymous user
+  mysql_user:
+    name: ''
+    host_all: yes
+    state: absent
 
-# - name: configure mariadb
-#   template:
-#     src: my.cnf.j2
-#     dest: "{{ mariadb_conf_dir[ansible_distribution] }}"
-#     owner: root
-#     group: root
-#     mode: 0644
-#   notify: restart mariadb
-
-# - name: start and enable MariaDB
-#   systemd:
-#     name: mysql
-#     state: restarted
-
-# - name: remove anonymous user
-#   mysql_user:
-#     name: ''
-#     host_all: yes
-#     state: absent
-#     login_unix_socket: "{{ mariadb_sock_dir[ansible_distribution] }}/mysqld.sock"
-
-# - name: remove test db
-#   mysql_db:
-#     name: test
-#     state: absent
-#     login_unix_socket: "{{ mariadb_sock_dir[ansible_distribution] }}/mysqld.sock"
+- name: remove test db
+  mysql_db:
+    name: test
+    state: absent
   
-# - name: create nextcloud db
-#   mysql_db:
-#     name: "{{ nc_db }}"
-#     collation: utf8mb4_general_ci
-#     encoding: utf8mb4
-#     login_unix_socket: "{{ mariadb_sock_dir[ansible_distribution] }}/mysqld.sock"
+- name: create ccnet_db
+  mysql_db:
+    name: ccnet_db
+    encoding: utf8
+    state: present
 
-# - name: create nextcloud user
-#   mysql_user:
-#     name:     "{{ nc_db_user }}"
-#     password: "{{ nc_db_passwd }}"
-#     priv:     "{{ nc_db }}.*:ALL"
-#     state: present
-#     login_unix_socket: "{{ mariadb_sock_dir[ansible_distribution] }}/mysqld.sock"
+- name: create seafile_db
+  mysql_db:
+    name: seafile_db
+    encoding: utf8
+    state: present
+
+- name: create seahub_db
+  mysql_db:
+    name: seahub_db
+    encoding: utf8
+    state: present
+
+- name: create seafile user
+  mysql_user:
+    name: seafile
+    password: seafile
+    priv:     "*.*:ALL,GRANT"
+    state: present

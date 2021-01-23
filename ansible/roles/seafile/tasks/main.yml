@@ -8,9 +8,46 @@
       - MySQL-python
       - python-urllib3
       - python-ldap
+    state: latest
+
+# - name: install pip files
+#   pip:
+#     name:
+#       - Pillow
+#       - pylibmc
+#       - captcha
+#       - jinja2
+#       - sqlalchemy
+#       - django-pylibmc
+#       - django-simple-captcha
+#       - python3-ldap
+#     executable: pip3.3
+
+- name: create seafile directory
+  file:
+    path: /opt/seafile
+    state: directory
+
+- name: create installed directory
+  file:
+    path: /opt/installed
+    state: directory
 
 - name: download seafile archive
   get_url:
     url: "{{ seafile_archive }}"
-    dest: /opt/seafile-server.tar.bz2
-    # checksum: "sha256:{{ seafile_archive }}.sha256"
+    dest: /opt/installed/seafile-server_7.1.5_x86-64.tar.gz
+
+- name: create seafile.service
+  copy:
+    src: seafile.service
+    dest: /etc/systemd/system/seafile.service
+
+- name: create seahub.service
+  copy:
+    src: seahub.service
+    dest: /etc/systemd/system/seahub.service
+
+- name: force systemd to reead configs
+  systemd:
+    daemon-reload: yes

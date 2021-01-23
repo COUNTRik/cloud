@@ -4,12 +4,6 @@
   
   roles:
     - prepare_system
-    - nginx
     - seafile
-
-- hosts: db
-  become: yes
-  
-  roles:
-    - prepare_system
+    - nginx
     - mariadb
