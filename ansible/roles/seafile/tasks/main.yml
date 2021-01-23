@@ -45,6 +45,7 @@
   unarchive:
     src: /opt/seafile/installed/seafile-server.tar.gz
     dest: /opt/seafile
+    remote_src: yes
 
 - name: create seafile.service
   copy:
