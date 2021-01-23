@@ -1,8 +1,2 @@
 ---
-# vars file for prepare_os
-
-imagemagick_xml_path:
-  CentOS: /etc/ImageMagick-6/policy.xml
-  
-service_path:
-  CentOS: '/usr/lib/systemd/system'
+# vars file for prepare_system

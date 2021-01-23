@@ -8,20 +8,23 @@
       - MySQL-python
       - python-urllib3
       - python-ldap
+      - python3
+      - python3-setuptools
+      - python3-pip
     state: latest
 
-# - name: install pip files
-#   pip:
-#     name:
-#       - Pillow
-#       - pylibmc
-#       - captcha
-#       - jinja2
-#       - sqlalchemy
-#       - django-pylibmc
-#       - django-simple-captcha
-#       - python3-ldap
-#     executable: pip3.3
+- name: install pip files for seafile
+  pip:
+    name:
+      - Pillow
+      - pylibmc
+      - captcha
+      - jinja2
+      - sqlalchemy
+      - django-pylibmc
+      - django-simple-captcha
+      - python3-ldap
+    executable: pip3.6
 
 - name: create seafile directory
   file:
@@ -30,13 +33,18 @@
 
 - name: create installed directory
   file:
-    path: /opt/installed
+    path: /opt/seafile/installed
     state: directory
 
 - name: download seafile archive
   get_url:
     url: "{{ seafile_archive }}"
-    dest: /opt/installed/seafile-server_7.1.5_x86-64.tar.gz
+    dest: /opt/seafile/installed/seafile-server.tar.gz
+
+- name: extract seafile-server.tar.gz into /opt/seafile
+  unarchive:
+    src: /opt/seafile/installed/seafile-server.tar.gz
+    dest: /opt/seafile
 
 - name: create seafile.service
   copy:

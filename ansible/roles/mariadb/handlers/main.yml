@@ -1,7 +1,7 @@
 ---
-# handlers file for prep_mariadb
+# handlers file for mariadb
 - name: restart mariadb
   systemd:
-    name: mysql
+    name: mariadb
     state: restarted
   

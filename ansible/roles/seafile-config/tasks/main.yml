@@ -1,0 +1,11 @@
+---
+# tasks file for seafile-config
+- name: copy ccnet.conf
+  copy:
+    src: ccnet.conf
+    dest: /opt/seafile/conf/ccnet.conf
+
+- name: copy ccnet.conf
+  copy:
+    src: seafdav.conf
+    dest: /opt/seafile/conf/seafdav.conf
