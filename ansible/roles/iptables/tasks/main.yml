@@ -1,43 +1,107 @@
 ---
 # tasks file for iptables
+- name: add iptables POLITIC INPUT ACCEPT
+  shell: iptables -P INPUT ACCEPT
+
+- name: add iptables POLITIC FORWARD ACCEPT
+  shell: iptables -P FORWARD ACCEPT
+
 
 - name: remove INPUT
   shell: iptables -F INPUT
+
 - name: remove OUTPUT
   shell: iptables -F OUTPUT
+
 - name: remove FORWARD
   shell: iptables -F FORWARD
+
 - name: remove NAT
   shell: iptables -F -t nat
+
 - name: remove other CHAINS
   shell: iptables -X
 
-- name: add iptables MASQUERADE
-  shell: iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-  
-# - name: add iptables TCP ESTABLISHED
-#   shell: iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
 
-# - name: add iptables UDP ESTABLISHED
-#   shell: iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
+- name: add iptables invalid INPUT DROP
+  shell: iptables -A INPUT -m state --state INVALID -j DROP
 
-# - name: add iptables BLOCK
-#   shell: iptables -A INPUT -p icmp --icmp-type echo-request -m length ! --length 142 -m recent --name BLOCK --set
+- name: add iptables invalid FORWARD DROP
+  shell: iptables -A FORWARD -m state --state INVALID -j DROP
 
-# - name: add iptables OPEN
-#   shell: iptables -A INPUT -p icmp --icmp-type echo-request -m length   --length 142 -m ttl --ttl-gt 65 -m recent --name OPEN  --set
 
-# - name: add iptables ACCEPT for OPEN
-#   shell: iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --name OPEN  --rcheck --seconds 30 -j ACCEPT
+- name: add iptables INPUT TCP ESTABLISHED
+  shell: iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
 
-# - name: add iptables DROP for BLOCK
-#   shell: iptables -A INPUT -p tcp --dport 22 -m recent --name BLOCK --rcheck --seconds 60 -j DROP
+- name: add iptables INPUT UDP ESTABLISHED
+  shell: iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
 
-# - name: add iptables DROP for dport 22
-#   shell: iptables -A INPUT -i eth1 -p tcp --dport 22 -j DROP
+
+- name: add iptables FORWARD TCP ESTABLISHED
+  shell: iptables -A FORWARD -p tcp -m state --state ESTABLISHED -j ACCEPT
+
+- name: add iptables FORWARD UDP ESTABLISHED
+  shell: iptables -A FORWARD -p udp -m state --state ESTABLISHED -j ACCEPT
+
+
+# - name: add iptables lo ACCEPT
+#   shell: iptables -A INPUT -i lo -j ACCEPT
+
+
+- name: add iptables eth0 INPUT ACCEPT
+  shell: iptables -A INPUT -i eth0 -j ACCEPT
+
+- name: add iptables eth1 INPUT ACCEPT
+  shell: iptables -A INPUT -i eth1 -j ACCEPT
+
+
+
+- name: add iptables eth0 ACCEPT
+  shell: iptables -A FORWARD -i eth0 -j ACCEPT
+
+- name: add iptables eth1 ACCEPT
+  shell: iptables -A FORWARD -i eth1 -j ACCEPT
+
+- name: add iptables eth0 ACCEPT
+  shell: iptables -A FORWARD -o eth0 -j ACCEPT
+
+- name: add iptables eth1 ACCEPT
+  shell: iptables -A FORWARD -o eth1 -j ACCEPT
+
+
+- name: add iptables INPUT ICMP ACCEPT
+  shell: iptables -A INPUT -p icmp -j ACCEPT
+
+- name: add iptables FORWARD ICMP ACCEPT
+  shell: iptables -A FORWARD -p icmp -j ACCEPT
+
+
+- name: add iptables web ACCEPT
+  shell: iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+
+- name: add iptables web ACCEPT
+  shell: iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+
+
+- name: add iptables POLITIC INPUT DROP
+  shell: iptables -P INPUT DROP
+
+- name: add iptables POLITIC FORWARD DROP
+  shell: iptables -P FORWARD DROP
+
 
 - name: add iptables PREROUTING DNAT 
   shell: iptables -t nat -A PREROUTING -i eth2 --dst 10.20.30.40 -p tcp --dport 80 -j DNAT --to-destination 192.168.50.10:80
 
 - name: add iptables PREROUTING DNAT 
   shell: iptables -t nat -A PREROUTING -i eth2 --dst 10.20.30.40 -p tcp --dport 443 -j DNAT --to-destination 192.168.50.10:443
+
+- name: add iptables PREROUTING DNAT 
+  shell: iptables -t nat -A PREROUTING -i eth2 --dst 10.20.30.40 -p tcp --dport 443 -j DNAT --to-destination 192.168.50.10:8082
+
+
+- name: add iptables PREROUTING DNAT 
+  shell: iptables -t nat -A PREROUTING -i eth2 --dst 10.20.30.40 -p tcp --dport 5601 -j DNAT --to-destination 192.168.50.12:5601
+
+- name: add iptables PREROUTING DNAT 
+  shell: iptables -t nat -A PREROUTING -i eth2 --dst 10.20.30.40 -p tcp --dport 9200 -j DNAT --to-destination 192.168.50.12:9200

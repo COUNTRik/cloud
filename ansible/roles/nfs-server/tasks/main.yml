@@ -22,43 +22,5 @@
     state: started
     enabled: yes
 
-# - name: Copy service 
-#   copy:
-#     src: backup.service
-#     dest: /etc/systemd/system/backup.service
-#     remote_src: yes
-
-# - name: Copy timer 
-#   copy:
-#     src: backup.timer
-#     dest: /etc/systemd/system/backup.timer
-#     remote_src: yes
-
-# - name: Change permissions
-#   file: 
-#     path: borg.sh
-#     mode: u+x,g+x,o+x
-
-# - name: reload systemd
-#   systemd:
-#     daemon_reload: yes
-
-# - name: Start service backup
-#   systemd:
-#     name: backup.service
-#     state: started
-
-# - name: Enable service backup
-#   systemd:
-#     name: backup.service
-#     enabled: yes
-
-# - name: Start timer backup
-#   systemd:
-#     name: backup.timer
-#     state: started
-
-# - name: Enable timer backup
-#   systemd:
-#     name: backup.timer
-#     enabled: yes
+- name: add static route for router
+  shell: ip route add 10.20.30.0/24 via 192.168.50.5 dev eth1
