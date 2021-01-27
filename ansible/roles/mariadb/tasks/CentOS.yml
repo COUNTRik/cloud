@@ -10,8 +10,3 @@
       - python-setuptools
       - MySQL-python
     state: latest
-
-- name: enable MariaDB
-  systemd:
-    name: mariadb
-    enabled: true

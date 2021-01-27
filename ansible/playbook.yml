@@ -4,6 +4,15 @@
   
   roles:
     - prepare_system
-    - seafile
+    - elastic_beats
     - nginx
     - mariadb
+    - seafile
+
+- hosts: backup
+  become: yes
+
+  roles:
+    - prepare_system
+    - elastic_kibana
+    - nfs-server

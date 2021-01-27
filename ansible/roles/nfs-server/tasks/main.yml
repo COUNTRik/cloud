@@ -1,0 +1,64 @@
+---
+# tasks file for borgbackup
+
+- name: include os specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"
+
+- name: create dir backup
+  file:
+    path: /mnt/backup
+    state: directory
+    mode: u+w,g+w,o+w
+
+- name: copy exports
+  copy:
+    src: exports
+    dest: /etc/exports
+    force: yes
+
+- name: enable nfs-server
+  systemd:
+    name: nfs-server
+    state: started
+    enabled: yes
+
+# - name: Copy service 
+#   copy:
+#     src: backup.service
+#     dest: /etc/systemd/system/backup.service
+#     remote_src: yes
+
+# - name: Copy timer 
+#   copy:
+#     src: backup.timer
+#     dest: /etc/systemd/system/backup.timer
+#     remote_src: yes
+
+# - name: Change permissions
+#   file: 
+#     path: borg.sh
+#     mode: u+x,g+x,o+x
+
+# - name: reload systemd
+#   systemd:
+#     daemon_reload: yes
+
+# - name: Start service backup
+#   systemd:
+#     name: backup.service
+#     state: started
+
+# - name: Enable service backup
+#   systemd:
+#     name: backup.service
+#     enabled: yes
+
+# - name: Start timer backup
+#   systemd:
+#     name: backup.timer
+#     state: started
+
+# - name: Enable timer backup
+#   systemd:
+#     name: backup.timer
+#     enabled: yes

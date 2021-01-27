@@ -19,4 +19,12 @@
       - mc
       - vim
       - wget
+      - rsync
+      - nfs-utils
+      - nfs4-acl-tools
+      - setroubleshoot-server
+      - setools-console
+      - policycoreutils-python
+      - policycoreutils-newrole
+      - selinux-policy-mls
     state: latest

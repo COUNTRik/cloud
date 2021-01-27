@@ -1,0 +1,22 @@
+---
+# tasks file for elastic-kibana
+
+- rpm_key:
+    state: present
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: copy elastic.repo
+  copy:
+    src: elastic.repo
+    dest: /etc/yum.repos.d/elastic.repo
+
+- name: copy kibana.repo
+  copy:
+    src: kibana.repo
+    dest: /etc/yum.repos.d/kibana.repo
+
+- name: install beats
+  yum:
+    name:
+      - elasticsearch
+      - kibana

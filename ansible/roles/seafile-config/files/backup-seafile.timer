@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer for backup-seafile.service
+Requires=backup-seafile.service
+
+[Timer]
+Unit=backup-seafile.service
+OnCalendar=*-*-* 2:00:00
+
+[Install]
+WantedBy=timers.target

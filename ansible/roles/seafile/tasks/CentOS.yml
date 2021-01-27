@@ -1,0 +1,15 @@
+---
+# CentOS related tasks
+
+- name: install pecakages for seafile
+  yum:
+    name:
+      - python
+      - python-setuptools
+      - MySQL-python
+      - python-urllib3
+      - python-ldap
+      - python3
+      - python3-setuptools
+      - python3-pip
+    state: latest

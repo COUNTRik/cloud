@@ -8,6 +8,7 @@
   systemd:
     name: mariadb
     state: started
+    enabled: yes
 
 - name: remove anonymous user
   mysql_user:

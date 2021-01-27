@@ -12,6 +12,30 @@
     dest: /opt/seafile/conf/seafdav.conf
     force: true
 
+- name: copy backup.sh for seafile
+  copy:
+    src: backup.sh
+    dest: /opt/seafile/backup.sh
+    mode: u+x,g+x,o+x
+    force: yes
+
+- name: create backup-seafile.service
+  copy:
+    src: backup-seafile.service
+    dest: /etc/systemd/system/backup-seafile.service
+
+- name: create backup-seafile.timer
+  copy:
+    src: backup-seafile.timer
+    dest: /etc/systemd/system/backup-seafile.timer
+
+- name: mount nfs backup
+  shell: mount -t nfs 192.168.50.12:/mnt/backup /mnt/backup
+
+- name: force systemd to read configs
+  systemd:
+    daemon-reload: yes
+
 - name: stop seafile.service
   systemd:
     name: seafile.service
@@ -26,8 +50,16 @@
   systemd:
     name: seafile.service
     state: started
+    enabled: yes
 
 - name: start seahub.service
   systemd:
     name: seahub.service
     state: started
+    enabled: yes
+
+- name: start backup-seafile.timer
+  systemd:
+    name: backup-seafile.timer
+    state: started
+    enabled: yes

@@ -1,17 +1,7 @@
 ---
 # tasks file for seafile
-- name: install pecakages for seafile
-  yum:
-    name:
-      - python
-      - python-setuptools
-      - MySQL-python
-      - python-urllib3
-      - python-ldap
-      - python3
-      - python3-setuptools
-      - python3-pip
-    state: latest
+- name: include os specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"
 
 - name: install pip files for seafile
   pip:
@@ -25,6 +15,12 @@
       - django-simple-captcha
       - python3-ldap
     executable: pip3.6
+
+- name: create dir backup
+  file:
+    path: /mnt/backup
+    state: directory
+    mode: u+w,g+w,o+w
 
 - name: create seafile directory
   file:
@@ -57,6 +53,9 @@
     src: seahub.service
     dest: /etc/systemd/system/seahub.service
 
-- name: force systemd to reead configs
+- name: force systemd to read configs
   systemd:
     daemon-reload: yes
+
+- name: add backup nfs in fstab
+  shell: echo "192.168.50.12:/mnt/backup /mnt/backup nfs rw,noauto,x-systemd.automount 0 0" >> /etc/fstab 

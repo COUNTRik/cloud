@@ -1,0 +1,8 @@
+---
+# CentOS related tasks
+
+- name: Install borgbackup
+  yum:
+    name:
+      - borgbackup
+    state: latest

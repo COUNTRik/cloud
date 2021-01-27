@@ -22,18 +22,16 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   end
 
-  # config.vm.define "db" do |db|
-  #   db.vm.network "private_network", ip: "192.168.50.11"
-  #   # db.vm.network "private_network", ip: "192.168.50.11", virtualbox__intnet: "cloud"
-  #   db.vm.hostname = "db"
+  config.vm.define "backup" do |backup|
+    backup.vm.network "private_network", ip: "192.168.50.12"
+    # backup.vm.network "private_network", ip: "192.168.50.12", virtualbox__intnet: "cloud"
+    backup.vm.hostname = "backup"
     
-  #   # db.vm.provider "virtualbox" do |vb|
-  #   #   vb.cpu = 1
-  #   #   vb.memory = 1024
-  #   # end
+    backup.vm.provider "virtualbox" do |vb|
+      # vb.cpu = 1
+      vb.memory = 2048
+    end
 
-  #   # db.vm.disk :disk, size: "100GB", primmary: true
-
-  # end
+  end
 
 end

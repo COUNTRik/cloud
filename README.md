@@ -79,3 +79,34 @@
 
 Запустим *seafile-config.yml* для применения наших конфигов в *seafile*.
 
+	$ ansible-playbook ansible/seafile-config.yml 
+
+	PLAY [web] ***************************************************************************
+
+	TASK [Gathering Facts] ***************************************************************
+	ok: [web]
+
+	TASK [seafile-config : copy ccnet.conf] **********************************************
+	changed: [web]
+
+	TASK [seafile-config : copy ccnet.conf] **********************************************
+	changed: [web]
+
+	TASK [seafile-config : stop seafile.service] *****************************************
+	ok: [web]
+
+	TASK [seafile-config : stop seahub.service] ******************************************
+	ok: [web]
+
+	TASK [seafile-config : start seafile.service] ****************************************
+	changed: [web]
+
+	TASK [seafile-config : start seahub.service] *****************************************
+	changed: [web]
+
+	PLAY RECAP ***************************************************************************
+	web                        : ok=7    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Проверив утилитой *sealert* применим ее предложенный вариант, разрешим параметрезированную политику.
+
+	[root@web vagrant]# setsebool -P httpd_can_network_connect 1
