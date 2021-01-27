@@ -1,8 +1,7 @@
 ---
 # CentOS related tasks
 
-- name: Install borgbackup
+- name: Install nfs
   yum:
-    name:
-      - borgbackup
+    name: nfs-utils
     state: latest

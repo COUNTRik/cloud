@@ -15,8 +15,12 @@
     src: kibana.repo
     dest: /etc/yum.repos.d/kibana.repo
 
-- name: install beats
+- name: install elasticsearch
   yum:
-    name:
-      - elasticsearch
-      - kibana
+    name: elasticsearch
+    state: present
+
+- name: install kibana
+  yum:
+    name: kibana
+    state: present
