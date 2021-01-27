@@ -18,6 +18,7 @@
     name:
       - mc
       - vim
+      - tcpdump
       - wget
       - rsync
       - nfs-utils

@@ -23,11 +23,13 @@
   copy:
     src: backup-seafile.service
     dest: /etc/systemd/system/backup-seafile.service
+    force: yes
 
 - name: create backup-seafile.timer
   copy:
     src: backup-seafile.timer
     dest: /etc/systemd/system/backup-seafile.timer
+    force: yes
 
 - name: mount nfs backup
   shell: mount -t nfs 192.168.50.12:/mnt/backup /mnt/backup
@@ -63,3 +65,9 @@
     name: backup-seafile.timer
     state: started
     enabled: yes
+
+- name: add static route for router
+  shell: ip route add 10.20.30.0/24 via 192.168.50.5 dev eth1
+
+- name: manage politic selinux for seafile and nginx
+  shell: setsebool -P httpd_can_network_connect 1
