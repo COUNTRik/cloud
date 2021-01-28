@@ -1,0 +1,12 @@
+---
+- hosts: web
+  become: yes
+  
+  roles:
+    - elastic_beats
+
+- hosts: backup
+  become: yes
+
+  roles:
+    - elastic_kibana

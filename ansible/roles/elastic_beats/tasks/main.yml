@@ -15,3 +15,25 @@
     name:
       - filebeat
       - metricbeat
+
+- name: copy filebeat.yml
+  copy: 
+    src: filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+
+- name: copy metricbeat.yml
+  copy: 
+    src: metricbeat.yml
+    dest: /etc/metricbeat/metricbeat.yml
+
+- name: start filebeat
+  systemd:
+    name: filebeat
+    state: started
+    enabled: yes
+
+- name: start metricbeat
+  systemd:
+    name: metricbeat
+    state: started
+    enabled: yes

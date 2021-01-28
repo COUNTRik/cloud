@@ -1,0 +1,9 @@
+---
+# tasks file for routing
+- name: network restart
+  systemd:
+    name: network
+    state: restarted
+
+- name: add static route for router
+  shell: ip route add 10.20.30.0/24 via 192.168.50.5 dev eth1

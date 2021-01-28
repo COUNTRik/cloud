@@ -24,3 +24,25 @@
   yum:
     name: kibana
     state: present
+
+- name: copy elasticsearch.yml
+  copy: 
+    src: filebeat.yml
+    dest: /etc/elasticsearch/elasticsearch.yml
+
+- name: copy kibana.yml
+  copy: 
+    src: kibana.yml
+    dest: /etc/kibana/kibana.yml
+
+- name: start elasticsearch
+  systemd:
+    name: elasticsearch
+    state: started
+    enabled: yes
+
+- name: start kibana
+  systemd:
+    name: metricbeat
+    state: started
+    enabled: yes

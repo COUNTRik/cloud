@@ -1,0 +1,19 @@
+---
+- hosts: router
+  become: yes
+  
+  roles:
+    - ip_forward
+    - iptables
+
+- hosts: web
+  become: yes
+
+  roles:
+    - routing
+
+- hosts: backup
+  become: yes
+
+  roles:
+    - routing

@@ -7,7 +7,6 @@
     - nginx
     - mariadb
     - seafile
-    - elastic_beats
 
 - hosts: backup
   become: yes
@@ -15,11 +14,3 @@
   roles:
     - prepare_system
     - nfs-server
-    - elastic_kibana
-
-- hosts: router
-  become: yes
-
-  roles:
-    - prepare_system
-    - router

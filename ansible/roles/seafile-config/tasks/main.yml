@@ -31,9 +31,6 @@
     dest: /etc/systemd/system/backup-seafile.timer
     force: yes
 
-- name: mount nfs backup
-  shell: mount -t nfs 192.168.50.12:/mnt/backup /mnt/backup
-
 - name: force systemd to read configs
   systemd:
     daemon-reload: yes

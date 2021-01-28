@@ -1,5 +1,6 @@
 ---
 # tasks file for iptables
+
 - name: add iptables POLITIC INPUT ACCEPT
   shell: iptables -P INPUT ACCEPT
 

@@ -1,6 +1,0 @@
----
-- hosts: router
-  become: yes
-  
-  roles:
-    - iptables
