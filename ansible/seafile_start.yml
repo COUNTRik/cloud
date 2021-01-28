@@ -3,4 +3,4 @@
   become: yes
   
   roles:
-    - seafile-config
+    - seafile_reload

@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   end
 
   config.vm.define "router" do |router|
-    # router.vm.network "private_network", ip: "192.168.50.12"
+    # router.vm.network "private_network", ip: "192.168.50.5"
     router.vm.network "private_network", ip: "192.168.50.5", netmask: "255.255.255.0", adapter: 2, virtualbox__intnet: "local"
     router.vm.network "private_network", ip: "10.20.30.40", adapter: 3
     router.vm.hostname = "router"

@@ -4,7 +4,7 @@
 
 ## Подготовка и запуск
 
-Запускаем *Vagrantfile* с виртуальными машинами. Потом запускаем *playbook.yml*, который установит необходимые пакеты и проведет первичную настройку серверов.
+Запускаем *Vagrantfile* с виртуальными машинами. Потом запускаем *inatll.yml*, который установит необходимые пакеты и проведет первичную настройку серверов.
 
 ## WEB
 
@@ -77,7 +77,7 @@
 	Stopping seafile server ...
 	Done.
 
-Запустим *seafile-config.yml* для применения наших конфигов в *seafile*.
+Запустим *seafile_start.yml* для применения наших конфигов в *seafile*.
 
 	$ ansible-playbook ansible/seafile-config.yml 
 
@@ -106,7 +106,3 @@
 
 	PLAY RECAP ***************************************************************************
 	web                        : ok=7    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
-Проверив утилитой *sealert* применим ее предложенный вариант, разрешим параметрезированную политику.
-
-	[root@web vagrant]# setsebool -P httpd_can_network_connect 1

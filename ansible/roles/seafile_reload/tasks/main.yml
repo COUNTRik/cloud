@@ -1,5 +1,5 @@
 ---
-# tasks file for seafile-config
+# tasks file for seafile_reload
 - name: copy ccnet.conf
   copy:
     src: ccnet.conf
@@ -63,8 +63,15 @@
     state: started
     enabled: yes
 
-- name: add static route for router
-  shell: ip route add 10.20.30.0/24 via 192.168.50.5 dev eth1
+# - name: add static route for router
+#   shell: ip route add 10.20.30.0/24 via 192.168.50.5 dev eth1
 
 - name: manage politic selinux for seafile and nginx
   shell: setsebool -P httpd_can_network_connect 1
+
+- name: mount backup nfs
+  mount:
+    src: 192.168.50.12:/mnt/backup
+    path: /mnt/backup
+    state: mounted
+    fstype: nfs

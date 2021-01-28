@@ -14,3 +14,10 @@
   roles:
     - prepare_system
     - nfs-server
+
+- hosts: router
+  become: yes
+  
+  roles:
+    - ip_forward
+    - iptables
