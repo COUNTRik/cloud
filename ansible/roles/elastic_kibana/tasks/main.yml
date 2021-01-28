@@ -1,5 +1,5 @@
 ---
-# tasks file for elastic-kibana
+# tasks file for elastic_kibana
 
 - rpm_key:
     state: present
@@ -27,13 +27,15 @@
 
 - name: copy elasticsearch.yml
   copy: 
-    src: filebeat.yml
+    src: elasticsearch.yml
     dest: /etc/elasticsearch/elasticsearch.yml
+    force: yes
 
 - name: copy kibana.yml
   copy: 
     src: kibana.yml
     dest: /etc/kibana/kibana.yml
+    force: yes
 
 - name: start elasticsearch
   systemd:
@@ -43,6 +45,6 @@
 
 - name: start kibana
   systemd:
-    name: metricbeat
+    name: kibana
     state: started
     enabled: yes

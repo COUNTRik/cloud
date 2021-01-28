@@ -1,5 +1,5 @@
 ---
-# tasks file for elastic-beats
+# tasks file for elastic_beats
 
 - rpm_key:
     state: present
@@ -20,11 +20,22 @@
   copy: 
     src: filebeat.yml
     dest: /etc/filebeat/filebeat.yml
+    force: yes
 
 - name: copy metricbeat.yml
   copy: 
     src: metricbeat.yml
     dest: /etc/metricbeat/metricbeat.yml
+    force: yes
+
+- name: enable modules filebeat
+  shell: filebeat modules enable system nginx
+
+# - name: setup filebeat
+#   shell: filebeat setup -e
+
+# - name: setup metricbeat
+#   shell: metricbeat setup -e
 
 - name: start filebeat
   systemd:
