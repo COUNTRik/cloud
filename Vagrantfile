@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     
     web.vm.provider "virtualbox" do |vb|
       # vb.cpu = 1
-      vb.memory = 1024
+      vb.memory = 2048
     end
 
   end
@@ -29,7 +29,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     
     backup.vm.provider "virtualbox" do |vb|
       # vb.cpu = 1
-      vb.memory = 1024
+      vb.memory = 2048
     end
 
   end
